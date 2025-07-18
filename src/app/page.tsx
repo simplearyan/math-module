@@ -1,11 +1,13 @@
-import Image from "next/image";
+import  {App}  from "@/components/App";
 
 export default function Home() {
   return (
   
-    <div>
-      HELLO WORLD
-    </div>
+    <main className="overflow-hidden">  
+        
+          <App/>
+  
+      </main>
 
   );
 }
