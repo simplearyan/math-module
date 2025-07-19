@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
+import { ProjectsTab } from './tabs/projects-tab';
 
 
 export const App = () => {
@@ -143,7 +144,7 @@ export const App = () => {
                 {/* <FilesTab /> */}
               </TabsContent>
               <TabsContent value="projects" className="mt-0">
-                {/* <ProjectsTab /> */}
+                <ProjectsTab />
               </TabsContent>
               <TabsContent value="learn" className="mt-0">
                 {/* <LearnTab /> */}

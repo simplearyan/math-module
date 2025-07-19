@@ -4,6 +4,8 @@ import { Bell, Cloud, Menu, MessageSquare, PanelLeft } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { ProfileDropdown } from "@/components/profile/profile-dropdown"
+
 
 interface HeaderProps {
   sidebarOpen: boolean
@@ -62,10 +64,11 @@ export function Header({ sidebarOpen, onToggleSidebar, onToggleMobileMenu, notif
             </Tooltip>
           </TooltipProvider>
 
-          <Avatar className="h-9 w-9 border-2 border-primary">
+          {/* <Avatar className="h-9 w-9 border-2 border-primary">
             <AvatarImage src="/placeholder.svg?height=40&width=40" alt="User" />
             <AvatarFallback>JD</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
+          <ProfileDropdown />
         </div>
       </div>
     </header>
