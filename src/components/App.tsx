@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { ProjectsTab } from './tabs/projects-tab';
+import { LearnTab } from './tabs/learn-tab';
 
 
 export const App = () => {
@@ -147,7 +148,7 @@ export const App = () => {
                 <ProjectsTab />
               </TabsContent>
               <TabsContent value="learn" className="mt-0">
-                {/* <LearnTab /> */}
+                <LearnTab />
               </TabsContent>
             </motion.div>
           </Tabs>

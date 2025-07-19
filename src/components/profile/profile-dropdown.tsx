@@ -69,7 +69,7 @@ export function ProfileDropdown({
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80 p-0" align="end" forceMount>
+      <DropdownMenuContent className="w-70 p-0" align="end" forceMount>
         {/* User Info Header */}
         <div className="p-4 border-b">
           <div className="flex items-center gap-3">
