@@ -11,6 +11,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { ProjectsTab } from './tabs/projects-tab';
 import { LearnTab } from './tabs/learn-tab';
+import Editor from './Editor';
 
 
 export const App = () => {
@@ -140,6 +141,7 @@ export const App = () => {
               </TabsContent>
               <TabsContent value="apps" className="mt-0">
                 {/* <AppsTab /> */}
+                <Editor/>
               </TabsContent>
               <TabsContent value="files" className="mt-0">
                 {/* <FilesTab /> */}

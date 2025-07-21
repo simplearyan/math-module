@@ -2,7 +2,9 @@ import { SessionProvider } from 'next-auth/react';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// import { Providers } from './providers'; // NextAuth Session Provider
+// import './katex.min.css'; // For KaTeX CSS
+import 'katex/dist/katex.min.css';
+import './github.css'; // For Highlight.js GitHub theme (or your chosen theme)
 import { ThemeProvider } from "@/components/theme-provider"
 
 const geistSans = Geist({
