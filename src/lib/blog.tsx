@@ -9,7 +9,7 @@ import remarkParse from 'remark-parse'; // To parse markdown
 import remarkRehype from 'remark-rehype'; // To convert markdown AST to HTML AST
 import { remark } from 'remark';
 import rehypeReact from 'rehype-react';
-// import rehypeHighlight from 'rehype-highlight'; // For code syntax highlighting
+import rehypeHighlight from 'rehype-highlight'; // For code syntax highlighting
 import rehypeKatex from 'rehype-katex';     // For LaTeX math rendering
 import remarkMath from 'remark-math';       // To parse math syntax in markdown
 
@@ -82,7 +82,7 @@ async function processMarkdownToReact(markdownContent: string): Promise<React.Re
       .use(remarkMath)
       .use(remarkRehype)
       .use(rehypeKatex)
-      // .use(rehypeHighlight)
+      .use(rehypeHighlight)
       .use(rehypeReact, customRehypeReactOptions)
       .process(markdownContent);
 
