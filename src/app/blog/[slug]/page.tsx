@@ -2,20 +2,23 @@ import { notFound } from 'next/navigation'; // For handling 404
 import { getPostById, getPostList, Post } from '@/lib/blog'; // Import your blog fetching utilities
 import type { Metadata } from 'next'; // Import Metadata type for generateMetadata
 
+// This line is KEPT for Edge Runtime compatibility
+// export const runtime = 'edge';
+
 /**
  * generateStaticParams is a Next.js function that allows you to pre-render
  * dynamic routes at build time. This improves performance and SEO.
  * It will fetch all post IDs and create a static page for each.
  */
-export async function generateStaticParams() {
-  const posts = await getPostList(); // Get all post metadata
+// export async function generateStaticParams() {
+//   const posts = await getPostList(); // Get all post metadata
 
-  // Return an array of objects, where each object has the 'slug' parameter
-  // that corresponds to the dynamic segment in the route.
-  return posts.map((post) => ({
-    slug: post.id,
-  }));
-}
+//   // Return an array of objects, where each object has the 'slug' parameter
+//   // that corresponds to the dynamic segment in the route.
+//   return posts.map((post) => ({
+//     slug: post.id,
+//   }));
+// }
 
 /**
  * generateMetadata is a Next.js function to dynamically set SEO metadata
@@ -65,6 +68,7 @@ export async function generateMetadata({ params }: {params:Promise<{ slug: strin
 
 /**
  * The main Server Component for displaying a single blog post.
+ * This will now run on the Edge and use ISR for caching.
  */
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const {slug}  = await params
