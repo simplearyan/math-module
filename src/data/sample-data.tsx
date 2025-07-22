@@ -365,10 +365,10 @@ export const sidebarItems: SidebarItem[] = [
     title: "Community",
     icon: <Users />,
     items: [
-      { title: "Explore", url: "#" },
-      { title: "Following", url: "#" },
-      { title: "Challenges", url: "#" },
-      { title: "Events", url: "#" },
+      { title: "Explore", url: "/blog" },
+      { title: "Following", url: "/blog" },
+      { title: "Challenges", url: "/blog" },
+      { title: "Events", url: "/blog" },
     ],
   },
   {

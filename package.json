@@ -13,6 +13,7 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./env.d.ts"
 	},
 	"dependencies": {
+		"@octokit/rest": "^22.0.0",
 		"@radix-ui/react-avatar": "^1.1.10",
 		"@radix-ui/react-collapsible": "^1.1.11",
 		"@radix-ui/react-dialog": "^1.1.14",
@@ -28,6 +29,7 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"framer-motion": "^12.23.6",
+		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"katex": "^0.16.22",
 		"lucide-react": "^0.525.0",
@@ -37,13 +39,21 @@
 		"next-themes": "^0.4.6",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
+		"rehype-highlight": "^7.0.2",
 		"rehype-katex": "^7.0.1",
+		"rehype-react": "^8.0.0",
 		"rehype-rewrite": "^4.0.2",
-		"tailwind-merge": "^3.3.1"
+		"remark": "^15.0.1",
+		"remark-math": "^6.0.0",
+		"remark-parse": "^11.0.0",
+		"remark-rehype": "^11.1.2",
+		"tailwind-merge": "^3.3.1",
+		"unified": "^11.0.5"
 	},
 	"devDependencies": {
 		"@cloudflare/next-on-pages": "^1.13.12",
 		"@tailwindcss/postcss": "^4",
+		"@tailwindcss/typography": "^0.5.16",
 		"@types/node": "20.19.9",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
