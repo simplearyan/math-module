@@ -12,6 +12,7 @@ import rehypeReact from 'rehype-react';
 import rehypeHighlight from 'rehype-highlight'; // For code syntax highlighting
 import rehypeKatex from 'rehype-katex';     // For LaTeX math rendering
 import remarkMath from 'remark-math';       // To parse math syntax in markdown
+import remarkGfm from 'remark-gfm'; // <-- ADD THIS IMPORT
 
 // Custom React component for markdown (e.g., a callout box)
 import Callout from '@/components/Callout';
@@ -80,6 +81,7 @@ async function processMarkdownToReact(markdownContent: string): Promise<React.Re
     const processedContent = await unified()
       .use(remarkParse)
       .use(remarkMath)
+      .use(remarkGfm) // <-- ADD THIS LINE: This enables GFM features like tables
       .use(remarkRehype)
       .use(rehypeKatex)
       .use(rehypeHighlight)

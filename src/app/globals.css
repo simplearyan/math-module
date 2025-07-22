@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "tw-typography";
 
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+@import 'katex/dist/katex.min.css'; /* <-- Add this line */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,6 +121,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
