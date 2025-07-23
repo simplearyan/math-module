@@ -318,7 +318,6 @@ export const sidebarItems: SidebarItem[] = [
   {
     title: "Home",
     icon: <Home />,
-    isActive: true,
     items: [
       { title: "Dashboard", url: "/", badge: "New" },
       { title: "Recent Activity", url: "/recent" },

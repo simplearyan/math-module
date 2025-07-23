@@ -1,7 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Settings, Wand2, Search, X, Newspaper } from "lucide-react";
+import {
+  ChevronDown,
+  Settings,
+  Wand2,
+  Search,
+  X,
+  Newspaper,
+  Home,
+  BarChart2,
+  Building2,
+  Folder,
+  Wallet,
+  Receipt,
+  CreditCard,
+  Users2,
+  Shield,
+  MessagesSquare,
+  Video,
+  HelpCircle,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,7 +30,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { sidebarItems } from "@/data/sample-data";
 import Link from "next/link";
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -23,8 +42,7 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {}
   );
-  const pathname = usePathname()
-
+  const pathname = usePathname();
 
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) => ({
@@ -33,7 +51,7 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
     }));
   };
 
-    // Add blog to sidebar items
+  // Add blog to sidebar items
   const updatedSidebarItems = [
     ...sidebarItems,
     {
@@ -46,7 +64,34 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
         { title: "UX", url: "/blog?category=UX" },
       ],
     },
-  ]
+  ];
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  function handleNavigation() {
+    setIsMobileMenuOpen(false);
+  }
+
+  function NavItem({
+    href,
+    icon: Icon,
+    children,
+  }: {
+    href: string;
+    icon: any;
+    children: React.ReactNode;
+  }) {
+    return (
+      <Link
+        href={href}
+        onClick={handleNavigation}
+        className="flex items-center px-3 py-2 text-sm rounded-md transition-colors text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-[#1F1F23]"
+      >
+        <Icon className="h-4 w-4 mr-3 flex-shrink-0" />
+        {children}
+      </Link>
+    );
+  }
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
@@ -88,10 +133,10 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
                   pathname === "/" && item.title === "Home"
                     ? "bg-primary/10 text-primary"
                     : pathname?.startsWith("/blog") && item.title === "Blog"
-                      ? "bg-primary/10 text-primary"
-                      : item.isActive
-                        ? "bg-primary/10 text-primary"
-                        : "hover:bg-muted",
+                    ? "bg-primary/10 text-primary"
+                    : item.items && expandedItems[item.title]
+                    ? "bg-primary/10 text-primary"
+                    : "hover:bg-muted"
                 )}
                 onClick={() => item.items && toggleExpanded(item.title)}
               >
@@ -99,14 +144,20 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
                   {item.icon}
                   <span>{item.title}</span>
                 </div>
-                {item.badge && (
-                  <Badge variant="outline" className="ml-auto rounded-full px-2 py-0.5 text-xs">
+                {/* {item.badge && (
+                  <Badge
+                    variant="outline"
+                    className="ml-auto rounded-full px-2 py-0.5 text-xs"
+                  >
                     {item.badge}
                   </Badge>
-                )}
+                )} */}
                 {item.items && (
                   <ChevronDown
-                    className={cn("ml-2 h-4 w-4 transition-transform", expandedItems[item.title] ? "rotate-180" : "")}
+                    className={cn(
+                      "ml-2 h-4 w-4 transition-transform",
+                      expandedItems[item.title] ? "rotate-180" : ""
+                    )}
                   />
                 )}
               </button>
@@ -119,15 +170,20 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
                       href={subItem.url}
                       className={cn(
                         "flex items-center justify-between rounded-2xl px-3 py-2 text-sm hover:bg-muted",
-                        pathname === subItem.url ? "bg-muted/80 font-medium" : "",
+                        pathname === subItem.url
+                          ? "bg-muted/80 font-medium"
+                          : ""
                       )}
                     >
                       {subItem.title}
-                      {subItem.badge && (
-                        <Badge variant="outline" className="ml-auto rounded-full px-2 py-0.5 text-xs">
+                      {/* {subItem.badge && (
+                        <Badge
+                          variant="outline"
+                          className="ml-auto rounded-full px-2 py-0.5 text-xs"
+                        >
                           {subItem.badge}
                         </Badge>
-                      )}
+                      )} */}
                     </Link>
                   ))}
                 </div>
