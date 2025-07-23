@@ -5,7 +5,7 @@
 // middleware.ts
 import {
   auth
-} from "@/auth"; // Import the auth function
+} from "@/app/auth/auth"; // Import the auth function
 
 export default auth; // Export the auth middleware directly
 
