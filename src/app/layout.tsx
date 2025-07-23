@@ -6,6 +6,7 @@ import "./globals.css";
 import 'katex/dist/katex.min.css';
 import './github.css'; // For Highlight.js GitHub theme (or your chosen theme)
 import { ThemeProvider } from "@/components/theme-provider"
+import { MainLayoutWrapper } from '@/components/layout/main-layout-wrapper';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,7 @@ export default function RootLayout({
       >
          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <SessionProvider>
-          {children}
+          <MainLayoutWrapper>{children}</MainLayoutWrapper>
         </SessionProvider>
         </ThemeProvider>
       </body>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Settings, Wand2, Search, X } from "lucide-react";
+import { ChevronDown, Settings, Wand2, Search, X, Newspaper } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { sidebarItems } from "@/data/sample-data";
+import Link from "next/link";
+import { usePathname } from "next/navigation"
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,6 +23,8 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {}
   );
+  const pathname = usePathname()
+
 
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) => ({
@@ -28,6 +32,21 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
       [title]: !prev[title],
     }));
   };
+
+    // Add blog to sidebar items
+  const updatedSidebarItems = [
+    ...sidebarItems,
+    {
+      title: "Blog",
+      icon: <Newspaper className="text-pink-500" />,
+      items: [
+        { title: "All Articles", url: "/blog" },
+        { title: "Design", url: "/blog?category=Design" },
+        { title: "Development", url: "/blog?category=Development" },
+        { title: "UX", url: "/blog?category=UX" },
+      ],
+    },
+  ]
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
@@ -61,14 +80,18 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
 
       <ScrollArea className="flex-1 px-3 py-2">
         <div className="space-y-1">
-          {sidebarItems.map((item) => (
+          {updatedSidebarItems.map((item) => (
             <div key={item.title} className="mb-1">
               <button
                 className={cn(
                   "flex w-full items-center justify-between rounded-2xl px-3 py-2 text-sm font-medium",
-                  item.isActive
+                  pathname === "/" && item.title === "Home"
                     ? "bg-primary/10 text-primary"
-                    : "hover:bg-muted"
+                    : pathname?.startsWith("/blog") && item.title === "Blog"
+                      ? "bg-primary/10 text-primary"
+                      : item.isActive
+                        ? "bg-primary/10 text-primary"
+                        : "hover:bg-muted",
                 )}
                 onClick={() => item.items && toggleExpanded(item.title)}
               >
@@ -77,19 +100,13 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
                   <span>{item.title}</span>
                 </div>
                 {item.badge && (
-                  <Badge
-                    variant="outline"
-                    className="ml-auto rounded-full px-2 py-0.5 text-xs"
-                  >
+                  <Badge variant="outline" className="ml-auto rounded-full px-2 py-0.5 text-xs">
                     {item.badge}
                   </Badge>
                 )}
                 {item.items && (
                   <ChevronDown
-                    className={cn(
-                      "ml-2 h-4 w-4 transition-transform",
-                      expandedItems[item.title] ? "rotate-180" : ""
-                    )}
+                    className={cn("ml-2 h-4 w-4 transition-transform", expandedItems[item.title] ? "rotate-180" : "")}
                   />
                 )}
               </button>
@@ -97,21 +114,21 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
               {item.items && expandedItems[item.title] && (
                 <div className="mt-1 ml-6 space-y-1 border-l pl-3">
                   {item.items.map((subItem) => (
-                    <a
+                    <Link
                       key={subItem.title}
                       href={subItem.url}
-                      className="flex items-center justify-between rounded-2xl px-3 py-2 text-sm hover:bg-muted"
+                      className={cn(
+                        "flex items-center justify-between rounded-2xl px-3 py-2 text-sm hover:bg-muted",
+                        pathname === subItem.url ? "bg-muted/80 font-medium" : "",
+                      )}
                     >
                       {subItem.title}
                       {subItem.badge && (
-                        <Badge
-                          variant="outline"
-                          className="ml-auto rounded-full px-2 py-0.5 text-xs"
-                        >
+                        <Badge variant="outline" className="ml-auto rounded-full px-2 py-0.5 text-xs">
                           {subItem.badge}
                         </Badge>
                       )}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

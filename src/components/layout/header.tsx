@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Bell, Cloud, Menu, MessageSquare, PanelLeft } from "lucide-react";
@@ -35,6 +36,16 @@ export function Header({
   notifications,
 }: HeaderProps) {
   const { data: session, status } = useSession(); // Get session data and loading status
+  const pathname = usePathname();
+  // If you want to use the pathname for dynamic titles or other logic, you can do so here
+  // Determine the page title based on the current path
+  const getPageTitle = () => {
+    if (pathname === "/") return "Math Module";
+    if (pathname?.startsWith("/blog/") && pathname !== "/blog")
+      return "Blog Post";
+    if (pathname === "/blog") return "Blog";
+    return "Math Gird"; // Default title
+  };
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Button
@@ -54,7 +65,7 @@ export function Header({
         <PanelLeft className="h-5 w-5" />
       </Button>
       <div className="flex flex-1 items-center justify-between">
-        <h1 className="text-xl font-semibold">Math Gird</h1>
+        <h1 className="text-xl font-semibold">{getPageTitle().includes("Math Module") ? "Math Module" : getPageTitle()}</h1>
         <div className="flex items-center gap-3">
           <TooltipProvider>
             <Tooltip>
