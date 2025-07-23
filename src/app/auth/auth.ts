@@ -25,9 +25,9 @@ export const {
   session: {
     strategy: "jwt",
   },
-  pages: {
-    signIn: "/auth/signin", // Custom sign-in page (optional)
-  },
+  // pages: {
+  //   signIn: "/auth/signin", // Custom sign-in page (optional)
+  // },
 });
 
 // Declare process.env types for better type safety (optional but good practice)
