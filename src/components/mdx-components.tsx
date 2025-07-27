@@ -33,7 +33,7 @@ const components = {
   li: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <li className="mt-2" {...props} />
   ),
-  a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
+  a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement> & { href?: string }) => (
     <Link href={props.href || "#"} className="font-medium text-blue-600 underline" {...props} />
   ),
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (

@@ -22,7 +22,7 @@ type Post = {
     avatar?: string
   }
   date: string
-  category?: string // Optional!
+  category?: string[] // Optional!
   tags?: string[]   // Optional!
   featured?: boolean
   coverImage?: string
@@ -50,7 +50,7 @@ const filteredPosts = posts.filter((post) => {
     post.description?.toLowerCase().includes(searchQuery.toLowerCase());
 
   // If category is missing, treat as "Uncategorized"
-  const postCategory = post.category || "Uncategorized";
+  const postCategory = post.category || "Category";
   const matchesCategory = activeCategory === "All" || postCategory === activeCategory;
 
   return matchesSearch && matchesCategory;
@@ -195,7 +195,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                                     })}
                                 </time>
                                 ) : (
-                                <span className="italic text-muted-foreground">No publication date</span>
+                                <span className="italic text-muted-foreground">{post.date}</span>
                                 )}                                                                                                          
                               </span>
                             </div>
@@ -244,7 +244,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                         />
                       </div>
                       <CardContent className="p-6">
-                        <Badge className="mb-3">{post.category || "Uncategorized"}</Badge>
+                        <Badge className="mb-3">{post.category || "Category"}</Badge>
                         <h3 className="text-lg md:text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                           {post.title}
                         </h3>
@@ -310,7 +310,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
               Get the latest articles, tutorials, and updates delivered to your inbox
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-              <Input type="email" placeholder="Enter your email" className="flex-1 h-12 rounded-full" />
+              <Input type="email" placeholder="Enter your email" className="flex-1 h-12 rounded-full p-5" />
               <Button className="h-12 px-8 rounded-full">Subscribe</Button>
             </div>
           </div>

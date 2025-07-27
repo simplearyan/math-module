@@ -17,6 +17,7 @@ import { useParams } from "next/navigation"
 // Define the post type or import it from your types
 type BlogPost = {
   id: string
+  date: string
   title: string
   category?: string
   tags?: string[]
@@ -111,7 +112,7 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
               Back to Blog
             </Link>
 
-            <Badge className="mb-4">{post.category}</Badge>
+            <Badge className="mb-4 mx-2">{post.category || "Category"}</Badge>
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">{post.title}</h1>
 
@@ -140,7 +141,7 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
                   </span>
                 </div>
               ) : (
-                <div className="text-muted-foreground text-sm italic">Date not available</div>
+                <div className="text-muted-foreground text-sm italic">{post.date}</div>
               )}
 
 
@@ -296,7 +297,7 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
                               <span className="text-xs">
                                 {typeof relatedPost.author === "string"
                                   ? relatedPost.author
-                                  : relatedPost.author?.name || "Anonymous"}
+                                  : relatedPost.author?.name || "Aryan"}
                               </span>
 
                           </div>
@@ -324,7 +325,7 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
               Get the latest articles, tutorials, and updates delivered to your inbox
             </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-              <Input type="email" placeholder="Enter your email" className="flex-1 h-12 px-4 rounded-full" />
+              <Input type="email" placeholder="Enter your email" className="flex-1 h-12 px-4 rounded-full p-5" />
               <Button className="h-12 px-8 rounded-full">Subscribe</Button>
             </div>
           </div>
