@@ -26,6 +26,7 @@ type BlogPost = {
     role?: string
   }
   coverImage?: string
+  image?: string
   publishedAt?: string | Date
   readingTime?: string
   excerpt?: string
@@ -64,11 +65,11 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
 
   const authorName = typeof post.author === "string" 
     ? post.author 
-    : post.author?.name || "Anonymous";
+    : post.author?.name || "Aryan";
 
   const authorAvatar = typeof post.author === "object" && post.author.avatar
     ? post.author.avatar 
-    : "/placeholder.svg";
+    : "https://github.com/simplearyan.png";
 
   const authorRole = typeof post.author === "object" 
     ? post.author?.role 
@@ -163,7 +164,7 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
           >
             <div className="aspect-[21/9] overflow-hidden rounded-2xl">
               <img
-                src={post.coverImage || "/placeholder.svg"}
+                src={post.image || "https://images.unsplash.com/photo-1749248120469-c41bf8471a48?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                 alt={post.title}
                 className="w-full h-full object-cover"
               />

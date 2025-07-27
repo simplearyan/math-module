@@ -26,6 +26,7 @@ type Post = {
   tags?: string[]   // Optional!
   featured?: boolean
   coverImage?: string
+  imageSrc?: string // Use this for the main post image
   excerpt?: string
   publishedAt?: string | Date // Use Date type if you prefer
   readingTime?: string
@@ -141,7 +142,8 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                     <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 group">
                       <div className="aspect-[16/9] overflow-hidden">
                         <img
-                          src={post.coverImage || "/placeholder.svg"}
+                          // src={post.image || "/placeholder.svg"}
+                          src={"https://raw.githubusercontent.com/simplearyan/stick-hero/main/assets/Screenshot.png"}
                           alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -159,7 +161,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                                   src={
                                     typeof post.author === "object" && post.author?.avatar
                                       ? post.author.avatar
-                                      : "/placeholder.svg"
+                                      : "/https://github.com/simplearyan.png"
                                   }
                                   alt={
                                     typeof post.author === "object" && post.author?.name
@@ -236,7 +238,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                     <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 group">
                       <div className="aspect-[16/9] overflow-hidden">
                         <img
-                          src={post.coverImage || "/placeholder.svg"}
+                          src={post.imageSrc || "https://images.unsplash.com/photo-1749248120469-c41bf8471a48?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                           alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -254,7 +256,7 @@ const featuredPosts = posts.filter((post) => !!post.featured);
                                 src={
                                   typeof post.author === "object" && post.author?.avatar
                                     ? post.author.avatar
-                                    : "/placeholder.svg"
+                                    : "https://github.com/simplearyan.png"
                                 }
                                 alt={
                                   typeof post.author === "object" && post.author?.name
