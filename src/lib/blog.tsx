@@ -39,6 +39,7 @@ export interface Post {
   description?: string; // Optional, for blog list preview
   image?: string;       // Optional, for blog list thumbnail
   tags?: string[];
+  category?: string[]; // Optional, for blog list filtering
   content: React.ReactNode; // Rendered React component tree
   rawContent: string;   // Raw markdown content for the editor
 }
@@ -195,6 +196,7 @@ export async function getPostList(): Promise<Omit<Post, 'content' | 'rawContent'
             description: data.description || '',
             image: data.image || '',
             tags: (data.tags || []) as string[],
+            category: (data.category || data.tags || []) as string[], // Add category if available
           };
         } catch (matterError) {
           console.error(`Error parsing front matter for ${file.name}:`, matterError);
@@ -300,6 +302,7 @@ export async function getPostById(id: string): Promise<Post | null> {
     description: frontMatterData.description || '',
     image: frontMatterData.image || '',
     tags: (frontMatterData.tags || []) as string[],
+    category: (frontMatterData.category || []) as string[], // Add category if available
     content: renderedContent,
     rawContent: rawMarkdownContent,
   };

@@ -168,6 +168,7 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
                     <Link
                       key={subItem.title}
                       href={subItem.url}
+                      onClick={onClose}
                       className={cn(
                         "flex items-center justify-between rounded-2xl px-3 py-2 text-sm hover:bg-muted",
                         pathname === subItem.url

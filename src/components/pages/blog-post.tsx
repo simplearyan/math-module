@@ -19,7 +19,7 @@ type BlogPost = {
   id: string
   date: string
   title: string
-  category?: string
+  category?: string[]
   tags?: string[]
   author?: string | {
     name: string 
@@ -75,6 +75,36 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
   const authorRole = typeof post.author === "object" 
     ? post.author?.role 
     : undefined;
+
+    // --- New Handlers for Share and Bookmark ---
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: post.excerpt || "Check out this blog post!",
+          url: window.location.href, // Shares the current page's URL
+        });
+        console.log('Blog post shared successfully!');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback for browsers that do not support the Web Share API
+      alert("Your browser does not support the Web Share API. You can copy the URL to share: " + window.location.href);
+      // Optionally, you could open a new tab to a generic sharing service like Twitter:
+      // window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`, '_blank');
+    }
+  };
+
+  const handleBookmark = () => {
+    // You cannot programmatically add a bookmark due to browser security restrictions.
+    // The best you can do is advise the user to use their browser's built-in bookmarking feature.
+    alert("To bookmark this page, please use your browser's bookmarking feature (usually Ctrl+D or Cmd+D).");
+  };
+
+  // --- End New Handlers ---
 
 
   if (!post) {
@@ -192,10 +222,10 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
                 <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-transparent">
                   <MessageSquare className="h-5 w-5" />
                 </Button>
-                <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-transparent">
+                <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-transparent" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
                 </Button>
-                <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-transparent">
+                <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-transparent" onClick={handleBookmark}>
                   <Bookmark className="h-5 w-5" />
                 </Button>
               </motion.div>
