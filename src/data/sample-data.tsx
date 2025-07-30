@@ -376,10 +376,10 @@ export const sidebarItems: SidebarItem[] = [
     ],
   },
   {
-    title: "Resources",
+    title: "Calculator",
     icon: <Bookmark />,
     items: [
-      { title: "Stock Photos", url: "#" },
+      { title: "Math Solver", url: "/calculator" },
       { title: "Fonts", url: "#" },
       { title: "Icons", url: "#" },
       { title: "Templates", url: "#" },

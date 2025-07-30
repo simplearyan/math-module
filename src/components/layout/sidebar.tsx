@@ -233,6 +233,7 @@ export function Sidebar({ isOpen, onClose, isMobile = false }: SidebarProps) {
       >
         <div className="border-r h-full">{sidebarContent}</div>
       </div>
+      
     );
   }
 

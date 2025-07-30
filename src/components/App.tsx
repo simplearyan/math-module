@@ -11,6 +11,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { ProjectsTab } from './tabs/projects-tab';
 import { LearnTab } from './tabs/learn-tab';
+import MathSolverCalculator from './math/calculator';
 
 
 export const App = () => {
@@ -137,6 +138,7 @@ export const App = () => {
             >
               <TabsContent value="home" className="mt-0">
                 {/* <HomeTab /> */}
+                <MathSolverCalculator />
               </TabsContent>
               <TabsContent value="apps" className="mt-0">
                 {/* <AppsTab /> */}

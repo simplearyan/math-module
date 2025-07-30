@@ -51,7 +51,7 @@ export function Header({
       <Button
         variant="ghost"
         size="icon"
-        className="md:hidden"
+        className="lg:hidden"
         onClick={onToggleMobileMenu}
       >
         <Menu className="h-5 w-5" />
@@ -59,7 +59,7 @@ export function Header({
       <Button
         variant="ghost"
         size="icon"
-        className="hidden md:flex"
+        className="hidden lg:flex"
         onClick={onToggleSidebar}
       >
         <PanelLeft className="h-5 w-5" />
