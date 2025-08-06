@@ -359,8 +359,8 @@ export const sidebarItems: SidebarItem[] = [
     title: "Learn",
     icon: <BookOpen />,
     items: [
-      { title: "Tutorials", url: "#" },
-      { title: "Courses", url: "#" },
+      { title: "Tutorials", url: "/courses" },
+      { title: "Courses", url: "/courses" },
       { title: "Webinars", url: "#" },
       { title: "Resources", url: "#" },
     ],

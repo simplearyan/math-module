@@ -81,53 +81,6 @@ export default async function BlogPostPage({
   // Render the blog post content using Markdown
   // Note: Ensure you have the necessary plugins for Markdown processing in your Tailwind config                
   return (
-    // <article className="prose dark:prose-invert container mx-auto p-4 max-w-4xl pt-8 pb-16">
-    //   {/* Optional: Display thumbnail image if available */}
-    //   {post.image && (
-    //     <div className="mb-8">
-    //       <img
-    //         src={post.image}
-    //         alt={post.title}
-    //         className="w-full h-auto object-cover rounded-lg shadow-md"
-    //         style={{ maxHeight: "400px" }} // Limit max height for cover images
-    //       />
-    //     </div>
-    //   )}
-
-    //   <h1 className="text-4xl font-extrabold mb-4 leading-tight text-gray-900 dark:text-gray-100">
-    //     {post.title}
-    //   </h1>
-
-    //   <div className="text-gray-600 dark:text-gray-400 text-sm mb-6 flex flex-wrap gap-x-4">
-    //     <span>By: {post.author}</span>
-    //     <span>
-    //       On:{" "}
-    //       {new Date(post.date).toLocaleDateString("en-US", {
-    //         year: "numeric",
-    //         month: "long",
-    //         day: "numeric",
-    //       })}
-    //     </span>
-    //     {post.tags && post.tags.length > 0 && (
-    //       <div className="flex gap-2">
-    //         Tags:
-    //         {post.tags.map((tag, index) => (
-    //           <span
-    //             key={index}
-    //             className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2.5 py-0.5 rounded-full"
-    //           >
-    //             {tag}
-    //           </span>
-    //         ))}
-    //       </div>
-    //     )}
-    //   </div>
-
-    //   <div className="prose dark:prose-invert max-w-none text-lg leading-relaxed text-gray-800 dark:text-gray-200">
-    //     {post.content}
-    //     {/* Render the processed Markdown content directly */}
-    //   </div>
-    // </article>
       <Blog post={post} />
   );
 }

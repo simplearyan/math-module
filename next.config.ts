@@ -10,6 +10,15 @@ setupDevPlatform().catch(console.error);
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      // Add further external image hosts as needed
+    ],
+  },
   /* config options here */
 };
 

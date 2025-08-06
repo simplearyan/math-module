@@ -106,6 +106,37 @@ if (!GITHUB_FETCH_TOKEN) {
   console.warn("GITHUB_FETCH_TOKEN or GITHUB_PAT not set. Using unauthenticated GitHub API requests for fetching, which have very low rate limits.");
 }
 
+
+type RateLimitData = {
+  resources: {
+    core: {
+      limit: number;
+      remaining: number;
+      reset: number;
+    };
+  };
+};
+
+export async function fetchRateLimit() {
+  const response = await fetch('https://api.github.com/rate_limit', {
+    headers: {
+      Authorization: GITHUB_FETCH_TOKEN ? `Bearer ${GITHUB_FETCH_TOKEN}` : '',
+    }
+  });
+  const data = await response.json() as RateLimitData;
+  const core = data.resources.core;
+  const reset = new Date(core.reset * 1000).toLocaleString();
+  console.log(core.limit);
+  console.log(core.remaining);
+  console.log(reset);
+  return {
+    limit: core.limit,
+    remaining: core.remaining,
+    reset,
+  };
+}
+
+
 /**
  * Fetches data from GitHub API with caching and revalidation.
  * @param url The GitHub API URL to fetch.
@@ -140,16 +171,6 @@ async function fetchFromGitHubApi(url: string, isOptional: boolean = false): Pro
     throw new Error(`Failed to fetch from GitHub API: ${response.statusText}`);
   }
 
-  // if (!response.ok) {
-  //   const errorBody = await response.text();
-  //   console.error(`GitHub API error for URL: ${url}. Status: ${response.status}. Body: ${errorBody}`);
-  //   // Check for rate limit errors specifically
-  //   if (response.status === 403 && response.headers.get('X-RateLimit-Remaining') === '0') {
-  //     const resetTime = new Date(parseInt(response.headers.get('X-RateLimit-Reset') || '0', 10) * 1000);
-  //     throw new Error(`GitHub API rate limit exceeded. Resets at ${resetTime.toLocaleTimeString()} UTC. Try again later.`);
-  //   }
-  //   throw new Error(`Failed to fetch from GitHub API: ${response.statusText}`);
-  // }
 
   return response.json();
 }
@@ -208,6 +229,7 @@ export async function getPostList(): Promise<Omit<Post, 'content' | 'rawContent'
     const posts = (await Promise.all(postPromises)).filter(Boolean) as Omit<Post, 'content' | 'rawContent'>[];
 
     console.log(`Fetched ${posts.length} posts from GitHub.`);
+    fetchRateLimit()          // For Debuging
     return posts;
   } catch (error) {
     console.error("Error fetching post list from GitHub:", error);
@@ -224,30 +246,6 @@ export async function getPostById(id: string): Promise<Post | null> {
   let actualFilePathInRepo: string | null = null; // To store the path that was actually found (e.g., my-post.mdx)
   console.log('Attempting to fetch post with ID:', id);
   // Try to fetch as .mdx first, then fall back to .md
-  // let apiUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_BLOG_PATH}/${id}.mdx?ref=${GITHUB_BRANCH}`;
-  // console.log(`[getPostById] Trying MDX URL: ${apiUrl}`); // The exact URL being tried first
-
-  // let fileContentData: any;
-
-  // try {
-  //   fileContentData = await fetchFromGitHubApi(apiUrl);
-  // } catch (error: any) {
-  //   if (error.message.includes('404')) {
-  //     // If .mdx not found, try .md
-  //     apiUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_BLOG_PATH}/${id}.md?ref=${GITHUB_BRANCH}`;
-  //     try {
-  //       fileContentData = await fetchFromGitHubApi(apiUrl);
-  //     } catch (innerError: any) {
-  //       // If both .mdx and .md not found, or another error occurs, re-throw
-  //       console.error(`Error fetching post ${id}.md or ${id}.mdx from GitHub:`, innerError.message);
-  //       return null;
-  //     }
-  //   } else {
-  //     // Re-throw other types of errors (e.g., rate limit)
-  //     console.error(`Error fetching post ${id}.mdx from GitHub:`, error.message);
-  //     throw error; // Re-throw if it's not a 404
-  //   }
-  // }
 
   // 1. Try fetching .mdx first
   const apiUrlMdx = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${GITHUB_BLOG_PATH}/${id}.mdx?ref=${GITHUB_BRANCH}`;
