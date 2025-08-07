@@ -1,6 +1,7 @@
 import { fetchCourseContent, revalidate } from "@/lib/course";
 import { LessonCard } from "@/components/courses/LessonCard";
 import matter from "gray-matter";
+import type { Metadata } from "next";
 
 // export const revalidate = 3600; // 1 hour ISR
 
@@ -14,6 +15,58 @@ type CourseFile = {
   content: string | null;
   children?: CourseFile[];
 };
+
+// SEO Metadata generation for the course page
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { course } = await params;
+  const courseSlug = course.toLowerCase();
+
+  const allCourses = await fetchCourseContent("courses");
+  const currentCourse = allCourses.find((c) => c.name.toLowerCase() === courseSlug);
+
+  if (!currentCourse) {
+    return {
+      title: "Course Not Found",
+      description: "The requested course could not be found.",
+      openGraph: {
+        title: "Course Not Found",
+        description: "The requested course could not be found.",
+      },
+      twitter: {
+        card: "summary",
+        title: "Course Not Found",
+        description: "The requested course could not be found.",
+      },
+    };
+  }
+
+   const title = currentCourse.indexData?.frontmatter.title || currentCourse.name;
+  const description = currentCourse.indexData?.frontmatter.description || `Learn lessons in the ${currentCourse.name} course.`;
+  const imageUrl = currentCourse.indexData?.frontmatter.image
+    ? new URL(currentCourse.indexData.frontmatter.image, process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000").toString()
+    : undefined;
+
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/courses/${encodeURIComponent(courseSlug)}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: imageUrl ? [{ url: imageUrl, alt: title }] : [],
+    },
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+      creator: "@your_twitter_handle", // Replace as needed
+    },
+  };
+}
 
 export default async function SingleCoursePage({ params }: { params: Promise<Params> }) {
   const { course } = await params; // ✅ Await params
