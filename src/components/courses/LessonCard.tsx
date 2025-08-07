@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface LessonCardProps {
+  courseSlug: string;      // Added course slug
   slug: string;        // derived from file name, e.g. algebra-chapter-1
   title: string;
   description?: string;
@@ -11,10 +12,10 @@ interface LessonCardProps {
   duration?: string;
 }
 
-export function LessonCard({ slug, title, description, date, image, duration }: LessonCardProps) {
+export function LessonCard({ courseSlug, slug, title, description, date, image, duration }: LessonCardProps) {
   return (
     <Card className="hover:shadow-lg transition cursor-pointer">
-      <Link href={`/courses/lesson/${slug}`}>
+      <Link href={`/courses/${encodeURIComponent(courseSlug)}/lesson/${slug}`}>
         {image && (
           <div className="relative h-36 w-full overflow-hidden rounded-t-md">
             <Image

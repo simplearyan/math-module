@@ -58,7 +58,7 @@ export default async function SingleCoursePage({ params }: { params: Promise<Par
         duration,
       };
     })
-  );
+  ); 
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -72,6 +72,7 @@ export default async function SingleCoursePage({ params }: { params: Promise<Par
             (lesson) =>
               lesson && (
                 <LessonCard
+                  courseSlug={currentCourse.name}   // or whichever value represents your course slug
                   key={lesson.slug}
                   slug={lesson.slug}
                   title={lesson.title}

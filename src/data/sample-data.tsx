@@ -324,37 +324,37 @@ export const sidebarItems: SidebarItem[] = [
       { title: "Notifications", url: "/notifications", badge: "5" },
     ],
   },
-  {
-    title: "Apps",
-    icon: <Grid />,
-    badge: "2",
-    items: [
-      { title: "All Apps", url: "#" },
-      { title: "Recent", url: "#" },
-      { title: "Updates", url: "#", badge: "2" },
-      { title: "Installed", url: "#" },
-    ],
-  },
-  {
-    title: "Files",
-    icon: <FileText />,
-    items: [
-      { title: "Recent", url: "#" },
-      { title: "Shared with me", url: "#", badge: "3" },
-      { title: "Favorites", url: "#" },
-      { title: "Trash", url: "#" },
-    ],
-  },
-  {
-    title: "Projects",
-    icon: <Layers />,
-    badge: "4",
-    items: [
-      { title: "Active Projects", url: "#", badge: "4" },
-      { title: "Archived", url: "#" },
-      { title: "Templates", url: "#" },
-    ],
-  },
+  // {
+  //   title: "Apps",
+  //   icon: <Grid />,
+  //   badge: "2",
+  //   items: [
+  //     { title: "All Apps", url: "#" },
+  //     { title: "Recent", url: "#" },
+  //     { title: "Updates", url: "#", badge: "2" },
+  //     { title: "Installed", url: "#" },
+  //   ],
+  // },
+  // {
+  //   title: "Files",
+  //   icon: <FileText />,
+  //   items: [
+  //     { title: "Recent", url: "#" },
+  //     { title: "Shared with me", url: "#", badge: "3" },
+  //     { title: "Favorites", url: "#" },
+  //     { title: "Trash", url: "#" },
+  //   ],
+  // },
+  // {
+  //   title: "Projects",
+  //   icon: <Layers />,
+  //   badge: "4",
+  //   items: [
+  //     { title: "Active Projects", url: "#", badge: "4" },
+  //     { title: "Archived", url: "#" },
+  //     { title: "Templates", url: "#" },
+  //   ],
+  // },
   {
     title: "Learn",
     icon: <BookOpen />,

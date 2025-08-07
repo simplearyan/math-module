@@ -19,7 +19,10 @@ export default async function CoursesPage() {
               name={course.name}
               path={course.path}
               lessonCount={course.children ? course.children.length : 0}
+              description={course.indexData?.frontmatter?.description}
+              image={course.indexData?.frontmatter?.image}
             />
+
           ))}
         </div>
       )}
